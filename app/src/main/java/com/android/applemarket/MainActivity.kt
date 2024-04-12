@@ -1,13 +1,24 @@
 package com.android.applemarket
 
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.media.RingtoneManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +28,8 @@ import java.text.DecimalFormat
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val myNotificationID = 1
+    private val channelID = "default"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -155,6 +168,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "$name 선택!", Toast.LENGTH_SHORT).show()
             }
         }
+
+        binding.btnMainNotification.setOnClickListener {
+            notification()
+        }
     }
 
     @SuppressLint("MissingSuperCall")
@@ -173,5 +190,32 @@ class MainActivity : AppCompatActivity() {
         builder.setNegativeButton(R.string.dialog_negative, listener)
 
         builder.show()
+    }
+
+    private fun notification() {
+        val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+        val builder: NotificationCompat.Builder
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelID = "one-channel"
+            val channelName = "My Channel One"
+            val channel = NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_DEFAULT).apply {
+                description = "My Channel One Description"
+                setShowBadge(true)
+                RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                enableVibration(true)
+            }
+            manager.createNotificationChannel(channel)
+            builder = NotificationCompat.Builder(this, channelID)
+        }
+        else builder = NotificationCompat.Builder(this)
+
+        builder.run {
+            setSmallIcon(R.drawable.apple)
+            setWhen(System.currentTimeMillis())
+            setContentTitle(getText(R.string.notification_title))
+            setContentText(getText(R.string.notification_text))
+        }
+        manager.notify(1, builder.build())
     }
 }
