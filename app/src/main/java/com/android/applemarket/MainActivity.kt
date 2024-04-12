@@ -1,10 +1,13 @@
 package com.android.applemarket
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.applemarket.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -25,5 +28,16 @@ class MainActivity : AppCompatActivity() {
         appleDataList.add(AppleItem(R.drawable.sample8, getString(R.string.sample8_name), getString(R.string.sample8_intro), getString(R.string.sample8_seller), getString(R.string.sample8_price), getString(R.string.sample8_address), getString(R.string.sample8_heart).toInt(), getString(R.string.sample8_chat).toInt()))
         appleDataList.add(AppleItem(R.drawable.sample9, getString(R.string.sample9_name), getString(R.string.sample9_intro), getString(R.string.sample9_seller), getString(R.string.sample9_price), getString(R.string.sample9_address), getString(R.string.sample9_heart).toInt(), getString(R.string.sample9_chat).toInt()))
         appleDataList.add(AppleItem(R.drawable.sample10, getString(R.string.sample10_name), getString(R.string.sample10_intro), getString(R.string.sample10_seller), getString(R.string.sample10_price), getString(R.string.sample10_address), getString(R.string.sample10_heart).toInt(), getString(R.string.sample10_chat).toInt()))
+
+        val adapter = AppleAdapter(appleDataList)
+        binding.mainRecyclerview.adapter = adapter
+        binding.mainRecyclerview.layoutManager = LinearLayoutManager(this)
+
+        adapter.itemClick = object : AppleAdapter.ItemClick {
+            override fun onClick(view: View, position: Int) {
+                val name: String = appleDataList[position].appleName
+                Toast.makeText(this@MainActivity, "$name 선택!", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

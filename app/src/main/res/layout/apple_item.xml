@@ -2,8 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="@color/white"
+    android:layout_width="410dp"
+    android:layout_height="143dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
@@ -63,28 +64,27 @@
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/tx_item_price"
-        app:layout_constraintTop_toTopOf="@id/tx_item_price"
         app:layout_constraintBottom_toBottomOf="@id/tx_item_price"/>
 
     <ImageView
         android:id="@+id/img_item_chat"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toEndOf="@+id/tx_item_price"
-        app:layout_constraintTop_toBottomOf="@+id/tx_item_pricetx"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/chat" />
 
     <ImageView
         android:id="@+id/img_item_heart"
         android:layout_width="27dp"
         android:layout_height="27dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tx_item_chat"
-        app:layout_constraintTop_toTopOf="@+id/tx_item_chat"
-        app:srcCompat="@drawable/heart"
-        app:layout_constraintStart_toEndOf="@id/tx_item_chat"/>
+        android:layout_marginStart="330dp"
+        android:layout_marginTop="102dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/heart" />
 
     <TextView
         android:id="@+id/tx_item_chat"
