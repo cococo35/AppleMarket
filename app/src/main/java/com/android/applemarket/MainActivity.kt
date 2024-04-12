@@ -21,6 +21,8 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.applemarket.databinding.ActivityMainBinding
 import java.text.DecimalFormat
@@ -28,8 +30,6 @@ import java.text.DecimalFormat
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val myNotificationID = 1
-    private val channelID = "default"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -164,8 +164,9 @@ class MainActivity : AppCompatActivity() {
 
         adapter.itemClick = object : AppleAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
-                val name: String = appleDataList[position].appleName
-                Toast.makeText(this@MainActivity, "$name 선택!", Toast.LENGTH_SHORT).show()
+                //val name: String = appleDataList[position].appleName
+                //상세페이지
+                setFragment(DetailFragment())
             }
         }
 
@@ -217,5 +218,13 @@ class MainActivity : AppCompatActivity() {
             setContentText(getText(R.string.notification_text))
         }
         manager.notify(1, builder.build())
+    }
+
+    private fun setFragment(frag: Fragment) {
+        supportFragmentManager.commit {
+            replace(R.id.main_fragment, frag)
+            setReorderingAllowed(true)
+            addToBackStack("")
+        }
     }
 }
