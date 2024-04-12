@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_item_sample"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/sample1" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tx_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/sample1_name"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tx_item_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample1_address"
+        android:textColor="@color/gray"
+        android:textSize="15dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/tx_item_name"
+        app:layout_constraintStart_toStartOf="@+id/tx_item_name"/>
+
+    <TextView
+        android:id="@+id/tx_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample1_price"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tx_item_address"
+        app:layout_constraintTop_toBottomOf="@id/tx_item_address"/>
+
+    <TextView
+        android:id="@+id/tx_item_pricetx"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text="원"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/tx_item_price"
+        app:layout_constraintTop_toTopOf="@id/tx_item_price"
+        app:layout_constraintBottom_toBottomOf="@id/tx_item_price"/>
+
+    <ImageView
+        android:id="@+id/img_item_chat"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toEndOf="@+id/tx_item_price"
+        app:layout_constraintTop_toBottomOf="@+id/tx_item_pricetx"
+        app:srcCompat="@drawable/chat" />
+
+    <ImageView
+        android:id="@+id/img_item_heart"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tx_item_chat"
+        app:layout_constraintTop_toTopOf="@+id/tx_item_chat"
+        app:srcCompat="@drawable/heart"
+        app:layout_constraintStart_toEndOf="@id/tx_item_chat"/>
+
+    <TextView
+        android:id="@+id/tx_item_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample1_chat"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@id/img_item_chat"
+        app:layout_constraintTop_toTopOf="@id/img_item_chat"
+        app:layout_constraintBottom_toBottomOf="@id/img_item_chat"/>
+
+    <TextView
+        android:id="@+id/tx_item_heart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample1_heart"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_item_heart"
+        app:layout_constraintTop_toTopOf="@+id/img_item_heart"
+        app:layout_constraintStart_toEndOf="@id/img_item_heart"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
