@@ -70,4 +70,8 @@
     <string name="sample8_chat">7</string>
     <string name="sample9_chat">28</string>
     <string name="sample10_chat">6</string>
+    <string name="dialog_title">종료</string>
+    <string name="dialog_message">정말 종료하시겠습니까?</string>
+    <string name="dialog_positive">확인</string>
+    <string name="dialog_negative">취소</string>
 </resources>

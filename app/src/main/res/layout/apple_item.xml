@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:layout_width="410dp"
-    android:layout_height="143dp">
+    android:layout_height="153dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
@@ -20,16 +20,18 @@
             android:id="@+id/img_item_sample"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/sample1" />
+            android:src="@drawable/sample7" />
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tx_item_name"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
         android:layout_marginTop="15dp"
-        android:text="@string/sample1_name"
+        android:text="@string/sample7_name"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +41,7 @@
         android:id="@+id/tx_item_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sample1_address"
+        android:text="@string/sample7_address"
         android:textColor="@color/gray"
         android:textSize="15dp"
         android:layout_marginTop="5dp"
@@ -50,7 +52,7 @@
         android:id="@+id/tx_item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sample1_price"
+        android:text="@string/sample7_price"
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/tx_item_address"
@@ -105,5 +107,13 @@
         app:layout_constraintBottom_toBottomOf="@+id/img_item_heart"
         app:layout_constraintTop_toTopOf="@+id/img_item_heart"
         app:layout_constraintStart_toEndOf="@id/img_item_heart"/>
+
+    <ImageView
+        android:id="@+id/img_item_line"
+        android:layout_width="410dp"
+        android:layout_height="4dp"
+        app:srcCompat="@drawable/line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
