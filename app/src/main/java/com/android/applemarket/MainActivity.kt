@@ -3,24 +3,14 @@ package com.android.applemarket
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
-import android.graphics.BitmapFactory
 import android.media.RingtoneManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.view.View
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,129 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val decimal = DecimalFormat("#,###")
-
-        val appleDataList = mutableListOf<AppleItem>()
-        appleDataList.add(
-            AppleItem(
-                R.drawable.sample1,
-                getString(R.string.sample1_name),
-                getString(R.string.sample1_intro),
-                getString(R.string.sample1_seller),
-                decimal.format(getString(R.string.sample1_price).toInt()),
-                getString(R.string.sample1_address),
-                getString(R.string.sample1_heart).toInt(),
-                getString(R.string.sample1_chat).toInt()
-            )
-        )
-        appleDataList.add(
-            AppleItem(
-                R.drawable.sample2,
-                getString(R.string.sample2_name),
-                getString(R.string.sample2_intro),
-                getString(R.string.sample2_seller),
-                decimal.format(getString(R.string.sample2_price).toInt()),
-                getString(R.string.sample2_address),
-                getString(R.string.sample2_heart).toInt(),
-                getString(R.string.sample2_chat).toInt()
-            )
-        )
-        appleDataList.add(
-            AppleItem(
-                R.drawable.sample3,
-                getString(R.string.sample3_name),
-                getString(R.string.sample3_intro),
-                getString(R.string.sample3_seller),
-                decimal.format(getString(R.string.sample3_price).toInt()),
-                getString(R.string.sample3_address),
-                getString(R.string.sample3_heart).toInt(),
-                getString(R.string.sample3_chat).toInt()
-            )
-        )
-        appleDataList.add(
-            AppleItem(
-                R.drawable.sample4,
-                getString(R.string.sample4_name),
-                getString(R.string.sample4_intro),
-                getString(R.string.sample4_seller),
-                decimal.format(getString(R.string.sample4_price).toInt()),
-                getString(R.string.sample4_address),
-                getString(R.string.sample4_heart).toInt(),
-                getString(R.string.sample4_chat).toInt()
-            )
-        )
-        appleDataList.add(
-            AppleItem(
-                R.drawable.sample5,
-                getString(R.string.sample5_name),
-                getString(R.string.sample5_intro),
-                getString(R.string.sample5_seller),
-                decimal.format(getString(R.string.sample5_price).toInt()),
-                getString(R.string.sample5_address),
-                getString(R.string.sample5_heart).toInt(),
-                getString(R.string.sample5_chat).toInt()
-            )
-        )
-        appleDataList.add(
-            AppleItem(
-                R.drawable.sample6,
-                getString(R.string.sample6_name),
-                getString(R.string.sample6_intro),
-                getString(R.string.sample6_seller),
-                decimal.format(getString(R.string.sample6_price).toInt()),
-                getString(R.string.sample6_address),
-                getString(R.string.sample6_heart).toInt(),
-                getString(R.string.sample6_chat).toInt()
-            )
-        )
-        appleDataList.add(
-            AppleItem(
-                R.drawable.sample7,
-                getString(R.string.sample7_name),
-                getString(R.string.sample7_intro),
-                getString(R.string.sample7_seller),
-                decimal.format(getString(R.string.sample7_price).toInt()),
-                getString(R.string.sample7_address),
-                getString(R.string.sample7_heart).toInt(),
-                getString(R.string.sample7_chat).toInt()
-            )
-        )
-        appleDataList.add(
-            AppleItem(
-                R.drawable.sample8,
-                getString(R.string.sample8_name),
-                getString(R.string.sample8_intro),
-                getString(R.string.sample8_seller),
-                decimal.format(getString(R.string.sample8_price).toInt()),
-                getString(R.string.sample8_address),
-                getString(R.string.sample8_heart).toInt(),
-                getString(R.string.sample8_chat).toInt()
-            )
-        )
-        appleDataList.add(
-            AppleItem(
-                R.drawable.sample9,
-                getString(R.string.sample9_name),
-                getString(R.string.sample9_intro),
-                getString(R.string.sample9_seller),
-                decimal.format(getString(R.string.sample9_price).toInt()),
-                getString(R.string.sample9_address),
-                getString(R.string.sample9_heart).toInt(),
-                getString(R.string.sample9_chat).toInt()
-            )
-        )
-        appleDataList.add(
-            AppleItem(
-                R.drawable.sample10,
-                getString(R.string.sample10_name),
-                getString(R.string.sample10_intro),
-                getString(R.string.sample10_seller),
-                decimal.format(getString(R.string.sample10_price).toInt()),
-                getString(R.string.sample10_address),
-                getString(R.string.sample10_heart).toInt(),
-                getString(R.string.sample10_chat).toInt()
-            )
-        )
+        val appleDataList = init()
 
         val adapter = AppleAdapter(appleDataList)
         binding.mainRecyclerview.adapter = adapter
@@ -241,5 +109,32 @@ class MainActivity : AppCompatActivity() {
             setReorderingAllowed(true)
             addToBackStack("")
         }
+    }
+
+    private fun init(): MutableList<AppleItem> {
+        val name = resources.getStringArray(R.array.sample_names)
+        val intro = resources.getStringArray(R.array.sample_intro)
+        val seller = resources.getStringArray(R.array.sample_seller)
+        val price = resources.getStringArray(R.array.sample_price)
+        val address = resources.getStringArray(R.array.sample_address)
+        val heart = resources.getStringArray(R.array.sample_heart)
+        val chat = resources.getStringArray(R.array.sample_chat)
+        val decimal = DecimalFormat("#,###")
+        val dataList = mutableListOf<AppleItem>()
+        for(i in name.indices) {
+            dataList.add(
+                AppleItem(
+                    resources.getIdentifier("sample${i + 1}", "drawable", packageName),
+                    name[i],
+                    intro[i],
+                    seller[i],
+                    decimal.format(price[i].toInt()),
+                    address[i],
+                    heart[i].toInt(),
+                    chat[i].toInt()
+                )
+            )
+        }
+        return dataList
     }
 }
