@@ -164,9 +164,24 @@ class MainActivity : AppCompatActivity() {
 
         adapter.itemClick = object : AppleAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
-                //val name: String = appleDataList[position].appleName
-                //상세페이지
-                setFragment(DetailFragment())
+                val appleItem = AppleItem(
+                    appleDataList[position].appleImg,
+                    appleDataList[position].appleName,
+                    appleDataList[position].appleIntro,
+                    appleDataList[position].appleSeller,
+                    appleDataList[position].applePrice,
+                    appleDataList[position].appleAddress,
+                    appleDataList[position].appleHeart,
+                    appleDataList[position].appleChat
+                )
+                val argument = Bundle()
+                val detailFragment = DetailFragment()
+                argument.putParcelable("Apple_Key", appleItem)
+                detailFragment.arguments = argument
+
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.main_fragment, detailFragment)
+                    .commit()
             }
         }
 

@@ -38,7 +38,7 @@ class AppleAdapter (val items: MutableList<AppleItem>) : RecyclerView.Adapter<Ap
         holder.itemView.setOnClickListener {
             itemClick?.onClick(it, position)
         }
-        holder.sampleImgView.setImageResource(items[position].appleImg)
+        items[position].appleImg?.let { holder.sampleImgView.setImageResource(it) }
         holder.sampleNameView.text = items[position].appleName
         holder.sampleAddressView.text = items[position].appleAddress
         holder.samplePriceView.text = items[position].applePrice
