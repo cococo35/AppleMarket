@@ -102,15 +102,7 @@ class MainActivity : AppCompatActivity() {
         }
         manager.notify(1, builder.build())
     }
-
-    private fun setFragment(frag: Fragment) {
-        supportFragmentManager.commit {
-            replace(R.id.main_fragment, frag)
-            setReorderingAllowed(true)
-            addToBackStack("")
-        }
-    }
-
+    
     private fun init(): MutableList<AppleItem> {
         val name = resources.getStringArray(R.array.sample_names)
         val intro = resources.getStringArray(R.array.sample_intro)
