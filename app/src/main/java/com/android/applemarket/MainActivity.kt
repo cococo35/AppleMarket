@@ -7,13 +7,19 @@ import android.content.DialogInterface
 import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.view.View.GONE
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.applemarket.databinding.ActivityMainBinding
 import java.text.DecimalFormat
 
@@ -56,6 +62,24 @@ class MainActivity : AppCompatActivity() {
         binding.btnMainNotification.setOnClickListener {
             notification()
         }
+
+        binding.btnMainFloat.setOnClickListener {
+            binding.mainRecyclerview.scrollToPosition(0)
+        }
+
+        binding.mainRecyclerview.run {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            addItemDecoration(
+                DividerItemDecoration(
+                    this@MainActivity,
+                    LinearLayoutManager.VERTICAL
+                )
+            )
+            this.adapter = adapter
+
+            addOnScrollListener(scrollListener())
+        }
+
     }
 
     @SuppressLint("MissingSuperCall")
@@ -128,5 +152,23 @@ class MainActivity : AppCompatActivity() {
             )
         }
         return dataList
+    }
+
+    private fun scrollListener(): RecyclerView.OnScrollListener {
+        return object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, newState: Int, dy: Int) {
+                super.onScrolled(recyclerView, newState, dy)
+                with(binding.btnMainFloat) {
+                    if (!binding.mainRecyclerview.canScrollVertically(-1)) {
+                        visibility = INVISIBLE
+                        animate().alpha(0f).duration = 400
+                    }
+                    else {
+                        visibility = VISIBLE
+                        animate().alpha(1f).duration = 400
+                    }
+                }
+            }
+        }
     }
 }

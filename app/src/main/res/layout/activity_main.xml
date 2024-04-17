@@ -34,7 +34,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/notification"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,4 +47,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_main_float"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:fabCustomSize="40dp"
+        android:backgroundTint="@color/button_color"
+        android:src="@drawable/uparrow"
+        app:maxImageSize="14dp"
+        android:rotationX="180"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
