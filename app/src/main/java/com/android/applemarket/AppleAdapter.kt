@@ -15,7 +15,7 @@ class AppleAdapter (private val items: MutableList<AppleItem>) : RecyclerView.Ad
         fun onLongClick(view: View, position: Int)
     }
     var itemClick : ItemClick? = null
-    inner class Holder(private val binding: AppleItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class Holder(binding: AppleItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val sampleImgView = binding.imgItemSample
         val sampleNameView = binding.txItemName
         val sampleAddressView = binding.txItemAddress

@@ -7,13 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.applemarket.databinding.FragmentDetailBinding
+@Suppress("DEPRECATION")
 class DetailFragment : Fragment() {
     private val binding by lazy { FragmentDetailBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val data = arguments?.getParcelable<AppleItem>("Apple_Key")
 
         data?.let {

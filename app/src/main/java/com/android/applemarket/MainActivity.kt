@@ -5,18 +5,13 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.DialogInterface
 import android.media.RingtoneManager
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.view.View.GONE
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        var appleDataList = init()
+        val appleDataList = init()
 
         val adapter = AppleAdapter(appleDataList)
         binding.mainRecyclerview.adapter = adapter
@@ -64,12 +59,10 @@ class MainActivity : AppCompatActivity() {
                 builder.setMessage("상품을 정말로 삭제하시겠습니까?")
                 builder.setIcon(R.drawable.chat)
 
-                val listener = object : DialogInterface.OnClickListener {
-                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                        when(which) {
-                            DialogInterface.BUTTON_POSITIVE -> {
-                                adapter.removeItem(position)
-                            }
+                val listener = DialogInterface.OnClickListener { _, which ->
+                    when(which) {
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            adapter.removeItem(position)
                         }
                     }
                 }
@@ -103,6 +96,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @Deprecated("Deprecated in Java")
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this)
@@ -110,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         builder.setMessage(R.string.dialog_message)
         builder.setIcon(R.drawable.chat)
 
-        val listener = DialogInterface.OnClickListener { dialog, which ->
+        val listener = DialogInterface.OnClickListener { _, which ->
             when(which) {
                 DialogInterface.BUTTON_POSITIVE -> finish()
             }
@@ -145,6 +139,7 @@ class MainActivity : AppCompatActivity() {
         manager.notify(1, builder.build())
     }
     
+    @SuppressLint("DiscouragedApi")
     private fun init(): MutableList<AppleItem> {
         val name = resources.getStringArray(R.array.sample_names)
         val intro = resources.getStringArray(R.array.sample_intro)
