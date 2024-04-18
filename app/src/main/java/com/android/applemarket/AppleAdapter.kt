@@ -1,18 +1,21 @@
 package com.android.applemarket
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.applemarket.databinding.AppleItemBinding
 
-class AppleAdapter (val items: MutableList<AppleItem>) : RecyclerView.Adapter<AppleAdapter.Holder>() {
+class AppleAdapter (private val items: MutableList<AppleItem>) : RecyclerView.Adapter<AppleAdapter.Holder>() {
 
     interface ItemClick {
         fun onClick(view: View, position: Int)
+
+        fun onLongClick(view: View, position: Int)
     }
     var itemClick : ItemClick? = null
-    inner class Holder(val binding: AppleItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class Holder(private val binding: AppleItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val sampleImgView = binding.imgItemSample
         val sampleNameView = binding.txItemName
         val sampleAddressView = binding.txItemAddress
@@ -22,7 +25,7 @@ class AppleAdapter (val items: MutableList<AppleItem>) : RecyclerView.Adapter<Ap
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        var binding = AppleItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = AppleItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return Holder(binding)
     }
 
@@ -38,7 +41,11 @@ class AppleAdapter (val items: MutableList<AppleItem>) : RecyclerView.Adapter<Ap
         holder.itemView.setOnClickListener {
             itemClick?.onClick(it, position)
         }
-        items[position].appleImg?.let { holder.sampleImgView.setImageResource(it) }
+        holder.itemView.setOnLongClickListener {
+            itemClick?.onLongClick(it, position)
+            return@setOnLongClickListener (false)
+        }
+        items[position].appleImg.let { holder.sampleImgView.setImageResource(it) }
         holder.sampleNameView.text = items[position].appleName
         holder.sampleAddressView.text = items[position].appleAddress
         holder.samplePriceView.text = items[position].applePrice
@@ -46,4 +53,9 @@ class AppleAdapter (val items: MutableList<AppleItem>) : RecyclerView.Adapter<Ap
         holder.sampleHeartView.text = items[position].appleHeart.toString()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun removeItem(position: Int) {
+        items.removeAt(position)
+        notifyDataSetChanged()
+    }
 }

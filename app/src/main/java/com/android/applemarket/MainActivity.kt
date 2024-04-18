@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val appleDataList = init()
+        var appleDataList = init()
 
         val adapter = AppleAdapter(appleDataList)
         binding.mainRecyclerview.adapter = adapter
@@ -56,6 +56,27 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction()
                     .add(R.id.main_fragment, detailFragment)
                     .commit()
+            }
+
+            override fun onLongClick(view: View, position: Int) {
+                val builder = AlertDialog.Builder(this@MainActivity)
+                builder.setTitle("상품 삭제")
+                builder.setMessage("상품을 정말로 삭제하시겠습니까?")
+                builder.setIcon(R.drawable.chat)
+
+                val listener = object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        when(which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                adapter.removeItem(position)
+                            }
+                        }
+                    }
+                }
+
+                builder.setPositiveButton("확인", listener)
+                builder.setNegativeButton("취소", listener)
+                builder.show()
             }
         }
 
@@ -84,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
-        var builder = AlertDialog.Builder(this)
+        val builder = AlertDialog.Builder(this)
         builder.setTitle(R.string.dialog_title)
         builder.setMessage(R.string.dialog_message)
         builder.setIcon(R.drawable.chat)
@@ -104,19 +125,16 @@ class MainActivity : AppCompatActivity() {
         val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
         val builder: NotificationCompat.Builder
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelID = "one-channel"
-            val channelName = "My Channel One"
-            val channel = NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_DEFAULT).apply {
-                description = "My Channel One Description"
-                setShowBadge(true)
-                RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-                enableVibration(true)
-            }
-            manager.createNotificationChannel(channel)
-            builder = NotificationCompat.Builder(this, channelID)
+        val channelID = "one-channel"
+        val channelName = "My Channel One"
+        val channel = NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_DEFAULT).apply {
+            description = "My Channel One Description"
+            setShowBadge(true)
+            RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            enableVibration(true)
         }
-        else builder = NotificationCompat.Builder(this)
+        manager.createNotificationChannel(channel)
+        builder = NotificationCompat.Builder(this, channelID)
 
         builder.run {
             setSmallIcon(R.drawable.apple)
